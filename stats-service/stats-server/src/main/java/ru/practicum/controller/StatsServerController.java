@@ -21,11 +21,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StatsServerController {
     private final StatServer statServer;
-    private final String DATE_FORM = "yyyy-MM-dd HH:mm:ss";
+    private final String dateForm = "yyyy-MM-dd HH:mm:ss";
 
     @GetMapping("/stats")
-    public List<StatsDto> getStats(@RequestParam @DateTimeFormat(pattern = DATE_FORM) LocalDateTime start,
-                                   @RequestParam @DateTimeFormat(pattern = DATE_FORM) LocalDateTime end,
+    public List<StatsDto> getStats(@RequestParam @DateTimeFormat(pattern = dateForm) LocalDateTime start,
+                                   @RequestParam @DateTimeFormat(pattern = dateForm) LocalDateTime end,
                                    @RequestParam(required = false) List<String> uris,
                                    @RequestParam(defaultValue = "false") Boolean unique) {
 
