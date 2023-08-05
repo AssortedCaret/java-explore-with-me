@@ -1,39 +1,41 @@
 package ru.practicum;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.stereotype.Component;
-import org.springframework.web.util.DefaultUriBuilderFactory;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import ru.practicum.dto.HitsDto;
+import ru.practicum.dto.StatsDto;
 
 import java.util.List;
 import java.util.Map;
 
-@Component
-public class StatsClient extends BaseClient {
+@Service
+@RequiredArgsConstructor
+public class StatsClient {
 
-    public StatsClient(@Value("${stats-server.url}") String url, RestTemplateBuilder builder) {
-        super(
-                builder
-                        .uriTemplateHandler(new DefaultUriBuilderFactory(url))
-                        .requestFactory(HttpComponentsClientHttpRequestFactory::new)
-                        .build()
-        );
+    private final RestTemplate rest;
+
+    private String serverUrl;
+
+    public void saveInfo(HitsDto hitDto) {
+        rest.postForLocation(serverUrl.concat("/hit"), hitDto);
     }
 
-    public ResponseEntity<Object> saveHit(HitsDto hitsDto) {
-        return post("/hit", hitsDto);
-    }
-
-    public ResponseEntity<Object> getStatistics(String start, String end, List<String> uris, Boolean unique) {
+    public List<StatsDto> getStatistics(String start, String end, List<String> uris, Boolean unique) {
         Map<String, Object> parameters = Map.of(
                 "start", start,
                 "end", end,
                 "uris", uris,
-                "unique", unique
-        );
-        return get("/stats?start={start}&end={end}&uris={uris}&unique={unique}", null, parameters);
+                "unique", unique);
+
+        StatsDto[] statistics = rest.getForObject(
+                serverUrl.concat("/stats?start={start}&end={end}&uris={uris}&unique={unique}"),
+                StatsDto[].class,
+                parameters);
+
+        if (statistics == null) {
+            return List.of();
+        }
+        return List.of(statistics);
     }
 }
