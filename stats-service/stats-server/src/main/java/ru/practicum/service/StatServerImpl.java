@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.practicum.HitsMapper;
 import ru.practicum.dto.HitsDto;
 import ru.practicum.dto.StatsDto;
+import ru.practicum.exception.BadRequestException;
 import ru.practicum.model.Hits;
 import ru.practicum.repository.StatRepository;
 
@@ -20,7 +21,9 @@ public class StatServerImpl implements StatServer {
     public List<StatsDto> getStats(LocalDateTime start,
                                    LocalDateTime end,
                                    List<String> uri,
-                                   Boolean unique) {
+                                   Boolean unique) throws BadRequestException {
+        if (start.isAfter(end))
+            throw new BadRequestException("Неверная дата");
         if (uri == null || uri.isEmpty()) {
             return statRepository.getStatsHitWithoutURI(start, end);
         } else if (unique == true) {

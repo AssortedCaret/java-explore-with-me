@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.dto.HitsDto;
 import ru.practicum.dto.StatsDto;
+import ru.practicum.exception.BadRequestException;
 import ru.practicum.model.Hits;
 import ru.practicum.service.StatServer;
 
@@ -27,7 +28,7 @@ public class StatsServerController {
     public List<StatsDto> getStats(@RequestParam @DateTimeFormat(pattern = dateForm) LocalDateTime start,
                                    @RequestParam @DateTimeFormat(pattern = dateForm) LocalDateTime end,
                                    @RequestParam(required = false) List<String> uris,
-                                   @RequestParam(defaultValue = "false") Boolean unique) {
+                                   @RequestParam(defaultValue = "false") Boolean unique) throws BadRequestException {
 
         log.info("Получен @GetMapping(/stats) с start= {}, end= {}, uris= {}, unique= {}", start, end, uris, unique);
         return statServer.getStats(start, end, uris, unique);
