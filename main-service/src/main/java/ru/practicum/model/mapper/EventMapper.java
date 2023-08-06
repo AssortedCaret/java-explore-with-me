@@ -11,8 +11,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ru.practicum.model.mapper.CategoryMapper.makeCategory;
-
 public class EventMapper {
 
     public static Event makeEvent(NewEventDto eventNewDto, Category category, User user) {

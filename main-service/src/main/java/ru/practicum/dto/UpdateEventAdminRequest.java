@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.practicum.model.Location;
 import ru.practicum.model.enumModel.EventStateAction;
 
 import javax.validation.constraints.Size;
