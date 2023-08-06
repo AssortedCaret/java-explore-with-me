@@ -23,6 +23,7 @@ import static ru.practicum.model.mapper.CompilationMapper.*;
 @RequiredArgsConstructor
 public class CompilationService {
     private final CompilationRepository compilationRepository;
+
     private final PublicServiceEvent eventService;
 
     @Transactional

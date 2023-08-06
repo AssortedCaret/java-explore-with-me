@@ -1,6 +1,7 @@
 package ru.practicum.serviceImpl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -31,7 +32,9 @@ import static ru.practicum.model.mapper.EventMapper.makeEventShortDtoList;
 public class PublicServiceEvent {
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    @Autowired
     private final EventsRepository eventRepository;
+    @Autowired
     private final StatsClient statClient;
 
     public List<EventShortDto> getAllEvents(String text, List<Long> categories, Boolean paid,
@@ -104,7 +107,7 @@ public class PublicServiceEvent {
 
     private void saveInfoToStatistics(String ip, String uri) {
         statClient.saveInfo(HitsDto.builder()
-                .app("ewm-main-service")
+                .app("main-service")
                 .uri(uri)
                 .ip(ip)
                 .timestamp(LocalDateTime.now().format(DATE_TIME_FORMATTER))

@@ -10,7 +10,6 @@ import ru.practicum.serviceImpl.PublicServiceEvent;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -31,7 +30,7 @@ public class PublicControllerEvents {
                                             @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime rangeEnd,
                                             @RequestParam(name = "onlyAvailable", required = false) Boolean onlyAvailable,
                                             @RequestParam(name = "sort", defaultValue = "event_date") String sort,
-                                            @RequestParam(name = "from", defaultValue = "0") @PositiveOrZero Integer from,
+                                            @RequestParam(name = "from", defaultValue = "0") Integer from,
                                             @RequestParam(name = "size", defaultValue = "10") @Positive Integer size,
                                             HttpServletRequest request) {
         return eventService.getAllEvents(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort,

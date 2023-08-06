@@ -1,7 +1,8 @@
 package ru.practicum;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import ru.practicum.dto.HitsDto;
 import ru.practicum.dto.StatsDto;
@@ -9,12 +10,13 @@ import ru.practicum.dto.StatsDto;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Component
 @RequiredArgsConstructor
 public class StatsClient {
 
     private final RestTemplate rest;
 
+    @Value("${stats-server.url}")
     private String serverUrl;
 
     public void saveInfo(HitsDto hitDto) {
