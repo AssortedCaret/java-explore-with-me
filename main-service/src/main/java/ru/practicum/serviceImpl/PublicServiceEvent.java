@@ -109,12 +109,6 @@ public class PublicServiceEvent {
                 .ip(ip)
                 .timestamp(LocalDateTime.now().format(DATE_TIME_FORMATTER))
                 .build());
-//        statClient.saveHit(HitsDto.builder()
-//                .app("ewm-main-service")
-//                .uri(uri)
-//                .ip(ip)
-//                .timestamp(LocalDateTime.now().format(DATE_TIME_FORMATTER))
-//                .build());
     }
 
     private void updateViewsOfEvents(List<Event> events) {

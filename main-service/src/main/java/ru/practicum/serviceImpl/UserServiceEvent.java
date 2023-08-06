@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static ru.practicum.model.mapper.EventMapper.*;
+import static ru.practicum.model.mapper.LocationMapper.makeLocation;
 
 @Service
 @RequiredArgsConstructor
@@ -93,7 +94,7 @@ public class UserServiceEvent {
             foundEvent.setDescription(request.getDescription());
         }
         if (Objects.nonNull(request.getLocation())) {
-            foundEvent.setLocation(request.getLocation());
+            foundEvent.setLocation(makeLocation(request.getLocation()));
         }
         if (Objects.nonNull(request.getParticipantLimit())) {
             foundEvent.setParticipantLimit(request.getParticipantLimit());

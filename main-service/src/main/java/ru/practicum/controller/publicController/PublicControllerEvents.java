@@ -18,7 +18,6 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("/events")
-@Component
 @RequiredArgsConstructor
 public class PublicControllerEvents {
     private final PublicServiceEvent eventService;
@@ -28,15 +27,15 @@ public class PublicControllerEvents {
                                             @RequestParam(name = "categories", required = false) List<Long> categories,
                                             @RequestParam(name = "paid", required = false) Boolean paid,
                                             @RequestParam(name = "rangeStart", required = false)
-                                            @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime startDate,
+                                            @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime rangeStart,
                                             @RequestParam(name = "rangeEnd", required = false)
-                                            @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime endDate,
+                                            @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime rangeEnd,
                                             @RequestParam(name = "onlyAvailable", required = false) Boolean onlyAvailable,
                                             @RequestParam(name = "sort", defaultValue = "event_date") String sort,
                                             @RequestParam(name = "from", defaultValue = "0") @PositiveOrZero Integer from,
                                             @RequestParam(name = "size", defaultValue = "10") @Positive Integer size,
                                             HttpServletRequest request) {
-        return eventService.getAllEvents(text, categories, paid, startDate, endDate, onlyAvailable, sort,
+        return eventService.getAllEvents(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort,
                 from, size, request.getRemoteAddr(), request.getRequestURI());
     }
 

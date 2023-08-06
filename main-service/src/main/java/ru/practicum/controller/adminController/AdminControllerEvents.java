@@ -18,7 +18,6 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("/admin")
-@Component
 @RequiredArgsConstructor
 public class AdminControllerEvents {
     private final AdminServiceEvent eventService;
@@ -36,7 +35,7 @@ public class AdminControllerEvents {
         return eventService.getEvents(users, states, categories, rangeStart, rangeEnd, from, size);
     }
 
-    @PatchMapping("/events/{id}")
+    @PatchMapping("/events/{eventId}")
     public EventFullDto updateEvents(@PathVariable Long eventId,
                                      @RequestBody @Valid UpdateEventAdminRequest updateEventAdminRequest) {
         return eventService.updateEvents(eventId, updateEventAdminRequest);

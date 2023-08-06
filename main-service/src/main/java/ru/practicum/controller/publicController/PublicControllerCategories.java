@@ -14,7 +14,6 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("/categories")
-@Component
 @RequiredArgsConstructor
 public class PublicControllerCategories {
     private final CategoryService categoryService;

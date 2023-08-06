@@ -24,6 +24,7 @@ import java.util.Objects;
 
 import static ru.practicum.model.mapper.EventMapper.makeEventFullDto;
 import static ru.practicum.model.mapper.EventMapper.makeEventFullDtoList;
+import static ru.practicum.model.mapper.LocationMapper.makeLocation;
 
 @Service
 @RequiredArgsConstructor
@@ -92,7 +93,7 @@ public class AdminServiceEvent {
             foundEvent.setEventDate(request.getEventDate());
         }
         if (Objects.nonNull(request.getLocation())) {
-            foundEvent.setLocation(request.getLocation());
+            foundEvent.setLocation(makeLocation(request.getLocation()));
         }
         if (Objects.nonNull(request.getPaid())) {
             foundEvent.setPaid(request.getPaid());

@@ -2,6 +2,7 @@ package ru.practicum.controller.privateController;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.dto.*;
@@ -16,7 +17,6 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("/users")
-@Component
 @RequiredArgsConstructor
 public class PrivateControllerEvents {
     private final UserServiceEvent eventService;
@@ -36,12 +36,14 @@ public class PrivateControllerEvents {
     }
 
     @GetMapping("/{userId}/events/{eventId}/requests")//+
+    @ResponseStatus(HttpStatus.OK)
     public List<RequestDto> getEventsThisUserFullRequests(@PathVariable(name = "userId") Long userId,
                                                           @PathVariable(name = "eventId") Long eventId) {
         return requestService.getEventsThisUserFullRequests(userId, eventId);
     }
 
     @PostMapping("/{userId}/events")//+
+    @ResponseStatus(HttpStatus.CREATED)
     public EventFullDto addEventsThisUser(@PathVariable(name = "userId") @Positive Long userId,
                                           @RequestBody @Valid NewEventDto request) {
         return eventService.addEventsThisUser(request, userId);
@@ -55,6 +57,7 @@ public class PrivateControllerEvents {
     }
 
     @PatchMapping("/{userId}/events/{eventId}/requests")//+
+    @ResponseStatus(HttpStatus.OK)
     public EventRequestStatusUpdateResult updateEventsThisUserFullRequests(@PathVariable(name = "userId") Long userId,
                                                                            @PathVariable(name = "eventId") Long eventId,
                                                                            @RequestBody EventRequestStatusUpdateRequest request) {

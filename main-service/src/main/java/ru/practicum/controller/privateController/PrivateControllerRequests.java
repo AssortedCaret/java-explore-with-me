@@ -2,6 +2,7 @@ package ru.practicum.controller.privateController;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.dto.RequestDto;
@@ -12,7 +13,6 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("/users")
-@Component
 @RequiredArgsConstructor
 public class PrivateControllerRequests {
     private final RequestService requestService;
@@ -23,6 +23,7 @@ public class PrivateControllerRequests {
     }
 
     @PostMapping("/{userId}/requests")//+
+    @ResponseStatus(HttpStatus.CREATED)
     public RequestDto addRequest(@PathVariable Long userId,
                                  @RequestParam Long eventId) {
         return requestService.addRequest(userId, eventId);
