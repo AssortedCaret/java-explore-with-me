@@ -12,24 +12,24 @@ import javax.validation.constraints.Positive;
 
 @RestController
 @Slf4j
-@RequestMapping("/admin")
+@RequestMapping("/admin/categories")
 @RequiredArgsConstructor
 public class AdminControllerCategory {
     private final CategoryService adminServiceCategory;
 
-    @PostMapping("/categories")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CategoryDto addCategories(@RequestBody @Valid CategoryDto categoryDto) {
         return adminServiceCategory.addCategory(categoryDto);
     }
 
-    @PatchMapping("/categories/{catId}")
+    @PatchMapping("/{catId}")
     public CategoryDto updateCategories(@PathVariable(name = "catId") @Positive Long categoryId,
                                         @RequestBody @Valid CategoryDto categoryDto) {
         return adminServiceCategory.updateCategories(categoryId, categoryDto);
     }
 
-    @DeleteMapping("/categories/{catId}")
+    @DeleteMapping("/{catId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCategories(@PathVariable(name = "catId") @Positive Long catId) {
         adminServiceCategory.deleteCategories(catId);

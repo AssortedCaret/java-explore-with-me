@@ -1,9 +1,11 @@
 package ru.practicum.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import ru.practicum.model.enumModel.RequestStatus;
 
 import java.time.LocalDateTime;
@@ -11,16 +13,18 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class RequestDto {
+    private final String date = "yyyy-MM-dd HH:mm:ss";
 
-    private Long id;
+    Long id;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime created;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = date)
+    LocalDateTime created;
 
-    private Long event;
+    Long event;
 
-    private Long requester;
+    Long requester;
 
-    private RequestStatus status;
+    RequestStatus status;
 }

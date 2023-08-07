@@ -15,47 +15,47 @@ import java.util.List;
 
 @RestController
 @Slf4j
-@RequestMapping("/users")
+@RequestMapping("/users/{userId}/events")
 @RequiredArgsConstructor
 public class PrivateControllerEvents {
     private final UserServiceEvent eventService;
     private final RequestService requestService;
 
-    @GetMapping("/{userId}/events")//+
+    @GetMapping
     public List<EventShortDto> getEventsThisUser(@PathVariable(name = "userId") @Positive Long userId,
                                                  @RequestParam(name = "from", defaultValue = "0") @PositiveOrZero Integer from,
                                                  @RequestParam(name = "size", defaultValue = "10") @Positive Integer size) {
         return eventService.getEventsThisUser(userId, from, size);
     }
 
-    @GetMapping("/{userId}/events/{eventId}")//+
+    @GetMapping("/{eventId}")
     public EventFullDto getEventsThisUserFull(@PathVariable(name = "userId") @Positive Long userId,
                                               @PathVariable(name = "eventId") @Positive Long eventId) {
         return eventService.getEventsThisUserFull(userId, eventId);
     }
 
-    @GetMapping("/{userId}/events/{eventId}/requests")//+
+    @GetMapping("/{eventId}/requests")
     @ResponseStatus(HttpStatus.OK)
     public List<RequestDto> getEventsThisUserFullRequests(@PathVariable(name = "userId") Long userId,
                                                           @PathVariable(name = "eventId") Long eventId) {
         return requestService.getEventsThisUserFullRequests(userId, eventId);
     }
 
-    @PostMapping("/{userId}/events")//+
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public EventFullDto addEventsThisUser(@PathVariable(name = "userId") @Positive Long userId,
                                           @RequestBody @Valid NewEventDto request) {
         return eventService.addEventsThisUser(request, userId);
     }
 
-    @PatchMapping("/{userId}/events/{eventId}")//+
+    @PatchMapping("/{eventId}")
     public EventFullDto updateEventsThisUserFull(@PathVariable(name = "userId") @Positive Long userId,
                                                  @PathVariable(name = "eventId") @Positive Long eventId,
                                                  @RequestBody @Valid UpdateEventUserRequest request) {
         return eventService.updateEventsThisUserFull(userId, eventId, request);
     }
 
-    @PatchMapping("/{userId}/events/{eventId}/requests")//+
+    @PatchMapping("/{eventId}/requests")
     @ResponseStatus(HttpStatus.OK)
     public EventRequestStatusUpdateResult updateEventsThisUserFullRequests(@PathVariable(name = "userId") Long userId,
                                                                            @PathVariable(name = "eventId") Long eventId,

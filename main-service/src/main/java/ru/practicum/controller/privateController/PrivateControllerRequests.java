@@ -11,24 +11,24 @@ import java.util.List;
 
 @RestController
 @Slf4j
-@RequestMapping("/users")
+@RequestMapping("/users/{userId}/requests")
 @RequiredArgsConstructor
 public class PrivateControllerRequests {
     private final RequestService requestService;
 
-    @GetMapping("/{userId}/requests")//+
+    @GetMapping
     public List<RequestDto> getRequest(@PathVariable(name = "userId") Long userId) {
         return requestService.getAllRequestsByUserId(userId);
     }
 
-    @PostMapping("/{userId}/requests")//+
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public RequestDto addRequest(@PathVariable Long userId,
                                  @RequestParam Long eventId) {
         return requestService.addRequest(userId, eventId);
     }
 
-    @PatchMapping("/{userId}/requests/{requestId}/cancel")//++
+    @PatchMapping("/{requestId}/cancel")
     public RequestDto updateRequestCancel(@PathVariable(name = "userId") Long userId,
                                           @PathVariable(name = "requestId") Long requestId) {
         return requestService.cancelledRequestById(userId, requestId);

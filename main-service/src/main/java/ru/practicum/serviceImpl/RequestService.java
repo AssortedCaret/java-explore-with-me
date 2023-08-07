@@ -93,7 +93,8 @@ public class RequestService {
 
         if ((Objects.equals(request.getStatus(), RequestStatus.CANCELED))
                 || (Objects.equals(request.getStatus(), RequestStatus.REJECTED))) {
-            throw new IncorrectRequestException("Запрос уже отменен");
+            throw new IncorrectRequestException(String.format("Запрос с id='%s' и реквестором с id='%s' уже отменен",
+                    requestId, userId));
         }
 
         request.setStatus(RequestStatus.CANCELED);
