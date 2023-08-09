@@ -1,7 +1,6 @@
 package ru.practicum.serviceImpl;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import ru.practicum.dto.CommentDto;
@@ -19,11 +18,11 @@ import ru.practicum.repository.request.RequestRepository;
 
 import javax.transaction.Transactional;
 import java.rmi.AccessException;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import static ru.practicum.model.mapper.CommentMapper.*;
+import static ru.practicum.model.mapper.CommentMapper.makeComment;
+import static ru.practicum.model.mapper.CommentMapper.makeCommentDto;
 
 @Service
 @RequiredArgsConstructor
@@ -92,15 +91,6 @@ public class CommentService {
 
         Comment savedComment = commentRepository.save(foundComment);
         return makeCommentDto(savedComment);
-    }
-
-    public List<CommentDto> getAllCommentsByEventId(Long eventId, Integer from, Integer size) {
-        checkExistEventById(eventId);
-
-        PageRequest pageRequest = PageRequest.of(from, size);
-        List<Comment> comments = commentRepository.findAllByEventIdOrderByCreatedOnDesc(eventId, pageRequest);
-
-        return makeCommentDtoList(comments);
     }
 
     private void checkUserIsAuthorComment(Long authorId, Long userId, Long commentId) throws AccessException {

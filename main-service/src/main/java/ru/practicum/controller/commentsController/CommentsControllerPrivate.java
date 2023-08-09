@@ -9,7 +9,6 @@ import ru.practicum.serviceImpl.CommentService;
 
 import javax.validation.Valid;
 import java.rmi.AccessException;
-import java.util.List;
 
 @Slf4j
 @RestController
