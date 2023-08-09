@@ -16,16 +16,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CommentDto {
-    private Long id;
+    Long id;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime createdOn;
+    LocalDateTime createdOn;
 
-    private Long event;
+    Long event;
 
-    private Long author;
+    Long author;
 
     @Size(min = 10, max = 2000)
     @NotBlank
-    private String text;
+    String text;
 }

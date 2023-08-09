@@ -16,6 +16,7 @@ import java.rmi.AccessException;
 @RequiredArgsConstructor
 public class CommentsControllerPrivate {
     private final CommentService commentService;
+    private final String way = "/{commentId}";
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -27,7 +28,7 @@ public class CommentsControllerPrivate {
         return commentService.createComment(userId, eventId, commentDto);
     }
 
-    @DeleteMapping("/{commentId}")
+    @DeleteMapping(way)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteComment(@PathVariable Long userId,
                               @PathVariable Long commentId) throws AccessException {
@@ -36,7 +37,7 @@ public class CommentsControllerPrivate {
         commentService.deleteCommentById(commentId, userId);
     }
 
-    @PatchMapping("/{commentId}")
+    @PatchMapping(way)
     public CommentDto updateComment(@PathVariable Long userId,
                                     @PathVariable Long commentId,
                                     @Valid @RequestBody CommentDto commentDto) throws AccessException {
