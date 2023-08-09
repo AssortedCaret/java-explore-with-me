@@ -2,7 +2,6 @@ package ru.practicum.model;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import ru.practicum.model.enumModel.RequestStatus;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,19 +11,23 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Table(name = "comments")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "requests")
-public class Request {
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    LocalDateTime created;
+    private Long id;
+
+    private LocalDateTime createdOn;
+
+    @Column(name = "comment_text")
+    private String text;
+
     @ManyToOne
-    @JoinColumn(name = "event_id")
-    Event event;
+    @JoinColumn(name = "event_id", referencedColumnName = "id")
+    private Event event;
+
     @ManyToOne
-    @JoinColumn(name = "requester_id")
-    User requester;
-    @Enumerated(EnumType.STRING)
-    RequestStatus status;
+    @JoinColumn(name = "author_id", referencedColumnName = "id")
+    private User author;
 }
